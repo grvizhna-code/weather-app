@@ -1,6 +1,8 @@
 import requests
 from dotenv import load_dotenv
 import os
+import warnings
+warnings.filterwarnings("ignore")
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
