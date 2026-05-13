@@ -3,7 +3,7 @@ import json
 import os
 import time
 import warnings
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import Optional, Union
 
 warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL*")
@@ -28,8 +28,8 @@ def _wind_direction(deg: Optional[Union[float, int]]) -> str:
 
 
 def _format_local_time(utc_seconds: int, tz_offset_seconds: int) -> str:
-    dt = datetime.fromtimestamp(utc_seconds, tz=timezone.utc).timestamp() + tz_offset_seconds
-    return datetime.fromtimestamp(dt).strftime("%H:%M")
+    tz = timezone(timedelta(seconds=tz_offset_seconds))
+    return datetime.fromtimestamp(utc_seconds, tz=tz).strftime("%H:%M")
 
 
 def _load_cache() -> dict:
